@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <h2 class="dashboard-heading">Teacher Dashboard</h2>
+
+    {% if courses %}
+        <ul class="dashboard-menu">
+            {% for course in courses %}
+                <li>
+                    <div class="dashboard-link">
+                        <strong>{{ course.name }}</strong><br>
+                        <small>Course Code: {{ course.code }}</small><br>
+                        <small>Students Enrolled: {{ course.students.count }}</small>
+
+                        <!-- Attendance button (we will wire logic next) -->
+                        <div style="margin-top: 10px;">
+                            <a href="{% url 'take_attendance' course.id %}"
+                               class="btn btn-success btn-sm">
+                                Take Attendance
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No courses assigned yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

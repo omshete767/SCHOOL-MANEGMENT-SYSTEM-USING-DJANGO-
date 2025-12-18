@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <h2 class="dashboard-heading">Admin Dashboard</h2>
+
+    <ul class="dashboard-menu">
+        <li>
+            <a href="{% url 'student_list' %}" class="dashboard-link">
+                Manage Students
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'teacher_list' %}" class="dashboard-link">
+                Manage Teachers
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'course_list' %}" class="dashboard-link">
+                Manage Courses
+            </a>
+        </li>
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Add Course</h2>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Course Name -->
+    <div class="mb-3">
+        <label class="form-label">Course Name</label>
+        <input
+            type="text"
+            name="name"
+            class="form-control"
+            placeholder="Enter course name"
+            required
+        >
+    </div>
+
+    <!-- Course Code -->
+    <div class="mb-3">
+        <label class="form-label">Course Code</label>
+        <input
+            type="text"
+            name="code"
+            class="form-control"
+            placeholder="Enter unique course code"
+            required
+        >
+    </div>
+    <div class="mb-3">
+    <label class="form-label">Total Lectures</label>
+    <input
+        type="number"
+        name="total_lectures"
+        class="form-control"
+        min="1"
+        required
+    >
+</div>
+
+
+    <!-- Assign Teacher -->
+    <div class="mb-3">
+        <label class="form-label">Assign Teacher</label>
+        <select name="teacher" class="form-control">
+            <option value="">-- Select Teacher --</option>
+            {% for teacher in teachers %}
+                <option value="{{ teacher.id }}">
+                    {{ teacher.user.first_name }} {{ teacher.user.last_name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Enroll Students (MULTIPLE) -->
+    <div class="mb-3">
+        <label class="form-label">Enroll Students</label>
+        <select
+            name="students"
+            class="form-control"
+            multiple
+            size="6"
+        >
+            {% for student in students %}
+                <option value="{{ student.id }}">
+                    {{ student.user.first_name }}
+                    {{ student.user.last_name }}
+                    ({{ student.roll_no }})
+                </option>
+            {% endfor %}
+        </select>
+        <small class="text-muted">
+            Hold <b>CTRL</b> (Windows/Linux) or <b>CMD</b> (Mac) to select multiple students
+        </small>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-success">
+        Add Course
+    </button>
+
+</form>
+
+{% endblock %}

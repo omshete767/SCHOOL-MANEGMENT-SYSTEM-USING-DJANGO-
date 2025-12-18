@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Student Dashboard</h2>
+
+{% if dashboard_data %}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Teacher</th>
+            <th>Total Lectures</th>
+            <th>Lectures Attended</th>
+            <th>Attendance %</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in dashboard_data %}
+        <tr>
+            <td>{{ item.course.name }}</td>
+
+            <td>
+                {% if item.course.teacher %}
+                    {{ item.course.teacher.user.first_name }}
+                    {{ item.course.teacher.user.last_name }}
+                {% else %}
+                    Not Assigned
+                {% endif %}
+            </td>
+
+            <td>{{ item.total }}</td>
+            <td>{{ item.attended }}</td>
+            <td>{{ item.percentage }}%</td>
+
+            <td>
+                {% if item.status == "COMPLETED" %}
+                    <span class="badge bg-success">Completed</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">In Progress</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>You are not enrolled in any courses.</p>
+{% endif %}
+
+{% endblock %}

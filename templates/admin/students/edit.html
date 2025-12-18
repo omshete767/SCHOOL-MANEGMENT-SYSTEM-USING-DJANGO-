@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit Student</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- USERNAME -->
+    <div class="mb-3">
+        <label>Username</label>
+        <input type="text"
+               name="username"
+               value="{{ student.user.username }}"
+               class="form-control"
+               required>
+    </div>
+
+    <!-- FIRST NAME -->
+    <div class="mb-3">
+        <label>First Name</label>
+        <input type="text"
+               name="first_name"
+               value="{{ student.user.first_name }}"
+               class="form-control"
+               required>
+    </div>
+
+    <!-- LAST NAME -->
+    <div class="mb-3">
+        <label>Last Name</label>
+        <input type="text"
+               name="last_name"
+               value="{{ student.user.last_name }}"
+               class="form-control"
+               required>
+    </div>
+
+    <!-- PASSWORD -->
+    <div class="mb-3">
+        <label>New Password (leave blank to keep same)</label>
+        <input type="password"
+               name="password"
+               class="form-control">
+    </div>
+
+    <!-- ROLL NUMBER -->
+    <div class="mb-3">
+        <label>Roll Number</label>
+        <input type="text"
+               name="roll_no"
+               value="{{ student.roll_no }}"
+               class="form-control"
+               required>
+    </div>
+
+    <!-- CLASS -->
+    <div class="mb-3">
+        <label>Class</label>
+        <input type="text"
+               name="class_name"
+               value="{{ student.class_name }}"
+               class="form-control"
+               required>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        Update Student
+    </button>
+</form>
+{% endblock %}

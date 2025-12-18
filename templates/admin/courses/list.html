@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Courses</h2>
+
+<a href="{% url 'course_add' %}" class="btn btn-primary mb-3">
+    Add Course
+</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Teacher</th>
+            <th>Total Students</th>
+            <th>Total Lectures</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for course in courses %}
+        <tr>
+            <td>{{ course.name }}</td>
+            <td>{{ course.code }}</td>
+            <td>
+                {% if course.teacher %}
+                    {{ course.teacher.user.first_name }} {{ course.teacher.user.last_name }}
+                {% else %}
+                    Not Assigned
+                {% endif %}
+            </td>
+
+            <!-- ✅ CORRECT VALUES -->
+            <td>{{ course.students.count }}</td>
+            <td>{{ course.total_lectures }}</td>
+
+            <td>
+                <a href="{% url 'course_edit' course.id %}" class="btn btn-sm btn-warning">
+                    Edit
+                </a>
+                <a href="{% url 'course_delete' course.id %}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Delete this course?');">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">No courses found</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
